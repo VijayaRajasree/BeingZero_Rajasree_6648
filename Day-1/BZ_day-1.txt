@@ -1,0 +1,103 @@
+1. BST and Its Time Complexity for Important Operations
+A) A Binary Search Tree (BST) is a node-based binary tree where each node has at most two children. For every node:
+      ->All elements in the left subtree are less than the node's value.
+      ->All elements in the right subtree are greater than the node's value.
+Important Operations and Their Time Complexity:
+i)Insertion: O(h), where h is the height of the tree. In the worst case (skewed tree), h = n, making it O(n).
+ii)Search: O(h), where h is the height of the tree. Worst case: O(n).
+iii)Deletion: O(h), where h is the height of the tree. Worst case: O(n).
+iv)Traversal (Inorder, Preorder, Postorder): O(n), as all nodes are visited.
+In a balanced BST, the height h is O(log n), making all operations O(log n). However, in an unbalanced BST, the height can degrade to O(n), leading to inefficient operations.
+
+2. Need for Self-Balancing Trees
+A) The performance of a BST depends on its height. In the worst case, a BST can become skewed (e.g., all nodes are in the left or right subtree), resulting in O(n) time complexity for operations. To address this, self-balancing trees are used. These trees automatically maintain a balanced structure during insertions and deletions, ensuring that the height remains O(log n).
+Why Self-Balancing Trees?
+->Guaranteed O(log n) time complexity for insertions, deletions, and searches.
+->Prevents performance degradation in dynamic datasets with frequent insertions and deletions.
+->Essential for real-time applications where predictable performance is critical.
+
+3. AVL Trees: Introduction and Detection of Imbalance
+A) An AVL Tree is a self-balancing binary search tree where the difference in heights between the left and right subtrees (called the balance factor) of any node is at most 1. If the balance factor exceeds 1, the tree is rebalanced using rotations.
+Detecting Imbalance:
+->After every insertion or deletion, the balance factor of each node is checked.
+->If the balance factor of any node is > 1 or < -1, the tree is imbalanced, and rotations are performed to restore balance.
+
+4. Sub-Cases of Imbalance in AVL Trees (LL, LR, RL, RR)
+A) There are four possible cases of imbalance in AVL trees:
+1.Left-Left (LL) Case:
+	->The left subtree of the left child is heavier.
+	->Detected when the balance factor of a node is > 1, and the left child's balance factor is >= 0.
+2.Left-Right (LR) Case:
+	->The right subtree of the left child is heavier.
+	->Detected when the balance factor of a node is > 1, and the left child's balance factor is < 0.
+3.Right-Right (RR) Case:
+	->The right subtree of the right child is heavier.
+	->Detected when the balance factor of a node is < -1, and the right child's balance factor is <= 0.
+4.Right-Left (RL) Case:
+	->The left subtree of the right child is heavier.
+	->Detected when the balance factor of a node is < -1, and the right child's balance factor is > 0.
+
+5. How to Balance Each of These Cases
+A) To restore balance, AVL trees use rotations:
+i)LL Case:
+	->Perform a right rotation on the imbalanced node.
+ii)LR Case:
+	->Perform a left rotation on the left child.
+	->Perform a right rotation on the imbalanced node.
+iii)RR Case:
+	->Perform a left rotation on the imbalanced node.
+iv)RL Case:
+	->Perform a right rotation on the right child.
+	->Perform a left rotation on the imbalanced node.
+
+6. AVL Trees vs. Red-Black Trees: When to Use Which One?
+     
+A)| Feature  	         |          AVL Trees	                                         |                   Red-Black Trees                                        |
+    | ------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | Balance	         |       Strictly balanced (height difference <= 1)	      |       Loosely balanced (height difference <=2x)        |
+    | Insertion/Deletion       |           More rotations, slower	                       |            Fewer rotations, faster                                    |
+    |Search	                          |            Faster (more balanced)	                       |           Slightly slower                                                  |
+    |Use Case	        |   Read-heavy operations (e.g., databases)	      |         Write-heavy operations (e.g., maps)                 |  
+  
+When to Use AVL Trees:
+->When search operations are more frequent than insertions/deletions.
+->Applications requiring strict balance, such as databases.
+When to Use Red-Black Trees:
+->When insertions/deletions are frequent.
+->Applications like Java's TreeMap or TreeSet.
+
+7. UML Diagram for Web UI Project Showing AVL Tree Visualization
+A)                                                      +---------------------+
+                                                           |     Web UI            |
+                                                          +---------------------+
+                                                           | - AVLTree            |
+                                                           | - renderTree()     |
+                                                           | - handleInput()  |
+                                                           +--------------------+
+                                                                          |
+                                                                          | uses
+                                                                          v
+                                                            +---------------------+
+                                                            |   AVLTree Class    |
+                                                            +---------------------+
+                                                            | - root: Node         |
+                                                            | + insert(value)     |
+                                                            | + delete(value)    |
+                                                            | + search(value)    |
+                                                            | + balanceTree()   |
+                                                            +---------------------+
+        				    |
+                                                                         | uses
+                                                                         v
+                                                           +-------------------+
+                                                           |    Node Class     |
+                                                          +-------------------+
+                                                           | - value: int        |
+                                                           | - left: Node       |
+                                                           | - right: Node    |
+                                                           | - height: int      |
+                                                          +-------------------+
+Explanation:
+->The Web UI interacts with the AVLTree Class to perform operations like insert, delete, and search.
+->The AVLTree Class maintains the tree structure and ensures balance using the balanceTree() method.
+->The Node Class represents individual nodes in the AVL tree.
